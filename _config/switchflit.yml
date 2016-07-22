@@ -1,0 +1,8 @@
+---
+Name: switchflit
+After:
+  - 'framework/*'
+---
+Director:
+  rules:
+    'switchflit': 'SwitchFlitController'
