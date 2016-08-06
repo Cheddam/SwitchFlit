@@ -2,6 +2,9 @@
     "name": "cheddam/silverstripe-switchflit",
     "description": "Provides a quick switch UI based on your DataObject.",
     "type": "silverstripe-module",
+    "extra": {
+        "installer-name": "switchflit"
+    },
     "require": {
         "silverstripe/framework": "^3.4"
     },
