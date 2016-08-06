@@ -54,7 +54,7 @@ window.switchflit = new Vue({
 document.addEventListener('keydown', (event) => {
 	if (event.keyCode == 27) {
 		window.switchflit.hide()
-	} else if (event.metaKey && event.keyCode == 75) {
+	} else if ((navigator.platform == "MacIntel" && event.metaKey && event.keyCode == 75) || (event.ctrlKey && event.keyCode == 75)) {
 		window.switchflit.show()
 	}
 })
