@@ -57,17 +57,4 @@ SwitchFlit uses [Vue](https://vuejs.org) to power its UI, assisted by [Fuse.js](
 
 ## Contributing
 
-Development on SwitchFlit requires [Browserify](https://www.npmjs.com/package/browserify) / [Watchify](https://www.npmjs.com/package/watchify) to be installed globally,
-along with [min.css](https://www.npmjs.com/package/min.css) for compiling CSS.
-
-You should be able to get started on JS development with the following commands:
-
-```
-> cd switchflit
-> npm install
-> npm run watch
-```
-
-Run `npm run build-prod` to compress the dist version before opening a pull request.
-
-The CSS is super basic at this stage, `npm run build-css` to compile.
+See `CONTRIBUTING.md`.

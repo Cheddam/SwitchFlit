@@ -6,6 +6,7 @@
         "installer-name": "switchflit"
     },
     "require": {
+		"php": "^5.4",
         "silverstripe/framework": "^3.4"
     },
     "license": "MIT",
