@@ -38,7 +38,7 @@ Now add the SwitchFlit template to (the end of) your layout, specifying the mode
     <p>Other content</p>
 </div>
 
-<% include SwitchFlit Model="Page" %>
+<% include SwitchFlit DataObject="Page" %>
 ```
 
 You should now be able to invoke the Switcher with Command + K on macOS, or CTRL + K on Windows.
