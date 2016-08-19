@@ -38,6 +38,8 @@ class SwitchFlitController extends Controller
 		$data = [];
 
 		foreach ($records as $record) {
+			if (! $record->canView()) continue;
+
 			$data[] = [
 				'title' => $record->SwitchFlitTitle(),
 				'link' => $record->SwitchFlitLink()
