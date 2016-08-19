@@ -1,6 +1,6 @@
 # SwitchFlit
 
-__NOTE: This module is in very early development - use at your own risk!__
+__NOTE: This module is under active development - set your expectations accordingly!__
 
 A plug-and-play quick-switch UI for SilverStripe DataObjects.
 
@@ -12,14 +12,23 @@ Quick-Switcher UIs are super useful for power users, and available today in a va
 
 `composer require cheddam/silverstripe-switchflit`
 
-Add configuration for one or more of your DataObjects as follows:
+SwitchFlit works with any DataObject that can provide a Title and a URL to access it. This includes SiteTree descendants, which we will use as an example below.
 
-```yaml
-SwitchFlit:
-  models:
-    MyDataObject:
-      name: Title
-      link: Link
+Simply implement the `SwitchFlitable` interface as follows:
+
+```php
+class Page extends SiteTree implements SwitchFlit\SwitchFlitable
+{
+	public function SwitchFlitTitle()
+	{
+		return $this->Title;
+	}
+
+	public function SwitchFlitLink()
+	{
+		return $this->Link();
+	}
+}
 ```
 
 Now add the SwitchFlit template to (the end of) your layout, specifying the model you configured:
@@ -29,24 +38,27 @@ Now add the SwitchFlit template to (the end of) your layout, specifying the mode
     <p>Other content</p>
 </div>
 
-<% include SwitchFlit Model="MyDataObject" %>
+<% include SwitchFlit Model="Page" %>
 ```
 
 You should now be able to invoke the Switcher with Command + K on macOS, or CTRL + K on Windows.
+Pressing Enter will send you to the first result in the list. Escape will clear your search and hide the switcher.
 
-SwitchFlit uses [Fuse.js]() to provide fuzzy-search on the Name field you specified for your DataObject. Pressing Enter will send you to the first result in the list. Escape will clear your search and hide the switcher.
+
+## Technologies Used
+
+SwitchFlit uses [Vue](https://vuejs.org) to power its UI, assisted by [Fuse.js](http://fusejs.io) for fuzzy-search.
 
 ## Future Enhancements
 
 - Navigating the list of results
 - Search on additional fields
 - Customisable shortcuts
-- 'Clicking away' from the Switcher
 
 ## Contributing
 
-SwitchFlit is powered by [Vue](https://vuejs.org), so you will have a better time if you've toyed with that before.
-It also requires [Watchify](https://github.com/substack/watchify) to be installed globally.
+Development on SwitchFlit requires [Browserify](https://www.npmjs.com/package/browserify) / [Watchify](https://www.npmjs.com/package/watchify) to be installed globally,
+along with [min.css](https://www.npmjs.com/package/min.css) for compiling CSS.
 
 You should be able to get started on JS development with the following commands:
 

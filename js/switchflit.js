@@ -6,7 +6,7 @@ var Fuse = require('fuse.js')
 window.switchflit = new Vue({
 	el: '#switchflit',
 
-	props: ['model'],
+	props: ['dataobject'],
 
 	data: {
 		visible: false,
@@ -32,17 +32,17 @@ window.switchflit = new Vue({
 		openResult() {
 			if (this.filteredRecords.length < 1) return true
 
-			window.location = this.filteredRecords[0].URL
+			window.location = this.filteredRecords[0].link
 		}
 	},
 
 	created() {
-		fetch(`/switchflit/${this.model}/records`).then((response) => {
+		fetch(`/switchflit/${this.dataobject}/records`).then((response) => {
 			return response.json()
 		}).then((records) => {
 			this.records = records
 
-			this.fuse = new Fuse(this.records, { keys: ['Name'] })
+			this.fuse = new Fuse(this.records, { keys: ['title'] })
 		})
 	},
 

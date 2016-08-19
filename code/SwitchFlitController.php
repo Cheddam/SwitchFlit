@@ -3,41 +3,46 @@
 class SwitchFlitController extends Controller
 {
 	private static $url_handlers = [
-		'$Model/records' => 'getRecordsForModel'
+		'$DataObject/records' => 'getRecordsForDataObject'
 	];
 
 	private static $allowed_actions = [
-		'getRecordsForModel'
+		'getRecordsForDataObject'
 	];
 
-	private $allowed_models = [];
-
-	public function init()
-	{
-		parent::init();
-
-		$this->allowed_models = Config::inst()->get('SwitchFlit', 'models');
-	}
-
 	/**
-	 * Pulls all items from a whitelisted model and returns them as JSON.
+	 * Pulls all items from a SwitchFlitable DataObject and returns them as JSON.
 	 *
 	 * @param SS_HTTPRequest $request The current request.
 	 * @return string The data in JSON format.
 	 *
 	 * @todo Allow custom columns? Pagination considerations?
 	 */
-	public function getRecordsForModel(SS_HTTPRequest $request)
+	public function getRecordsForDataObject(SS_HTTPRequest $request)
 	{
-		$model = $request->param('Model');
+		$dataobject = $request->param('DataObject');
 
-		if (! isset($this->allowed_models[$model])) return new SS_HTTPResponse(null, 403);
+		if (! class_exists($dataobject)) {
+			throw new Exception('The class ' . $dataobject . ' does not exist.');
+		}
 
-		$data = $model::get()->setQueriedColumns([
-			'ID',
-			$this->allowed_models[$model]['name'],
-			$this->allowed_models[$model]['link']
-		])->toNestedArray();
+		if (! in_array('DataObject', class_parents($dataobject))) {
+			throw new Exception('The class ' . $dataobject . ' is not a DataObject.');
+		}
+
+		if (! in_array('SwitchFlit\SwitchFlitable', class_implements($dataobject))) {
+			throw new Exception('The class ' . $dataobject . ' is not SwitchFlitable.');
+		}
+
+		$records = $dataobject::get();
+		$data = [];
+
+		foreach ($records as $record) {
+			$data[] = [
+				'title' => $record->SwitchFlitTitle(),
+				'link' => $record->SwitchFlitLink()
+			];
+		}
 
 		return json_encode($data);
 	}
