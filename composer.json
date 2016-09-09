@@ -9,7 +9,7 @@
 		"php": "^5.4",
         "silverstripe/framework": "^3.4"
     },
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Garion Herman",
