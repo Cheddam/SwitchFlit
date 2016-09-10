@@ -1,0 +1,7 @@
+SwitchFlitDemoDataObject:
+  obj1:
+    Name: 'First'
+  obj2:
+    Name: 'Second'
+  obj3:
+    Name: 'Third'
