@@ -2,7 +2,6 @@
 
 namespace SwitchFlit;
 
-
 interface SwitchFlitable
 {
 	public function SwitchFlitTitle();
