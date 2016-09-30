@@ -1,6 +1,7 @@
-/* global window, navigator */
+/* global window, navigator, console */
 const Vue = require('vue');
 const Fuse = require('fuse.js');
+const { fetch } = require('fetch-ponyfill')();
 
 // eslint-disable-next-line no-new
 new Vue({
@@ -10,6 +11,7 @@ new Vue({
 
   data: {
     visible: false,
+    currentState: 'loading', // (loading | ready | error)
     records: [],
     fuse: null,
     query: '',
@@ -23,6 +25,9 @@ new Vue({
       this.fuse.set(this.records);
 
       return this.fuse.search(this.query);
+    },
+    currentStateClass() {
+      return `switchflit-${this.currentState}`;
     },
   },
 
@@ -50,11 +55,29 @@ new Vue({
 
   created() {
     fetch(`/switchflit/${this.dataobject}/records`)
-      .then(response => response.json())
-      .then((records) => {
-        this.records = records;
+      .then((response) => {
+        if (!response.ok) {
+          response.json().then((parsedBody) => {
+            // eslint-disable-next-line no-console
+            console.error(`[switchflit] Heads up, something went wrong: ${parsedBody.errors}`);
 
-        this.fuse = new Fuse(this.records, { keys: ['title'] });
+            this.currentState = 'error';
+          });
+        } else {
+          response.json().then((parsedBody) => {
+            this.records = parsedBody.items;
+
+            this.fuse = new Fuse(this.records, { keys: ['title'] });
+
+            this.currentState = 'ready';
+          });
+        }
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(`[switchflit] Heads up, something went wrong: ${error.message}`);
+
+        this.currentState = 'error';
       });
   },
 

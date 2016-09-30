@@ -599,6 +599,11 @@
       "resolved": "https://registry.npmjs.org/doctrine/-/doctrine-1.4.0.tgz",
       "dev": true
     },
+    "encoding": {
+      "version": "0.1.12",
+      "from": "encoding@>=0.1.11 <0.2.0",
+      "resolved": "https://registry.npmjs.org/encoding/-/encoding-0.1.12.tgz"
+    },
     "envify": {
       "version": "3.4.1",
       "from": "envify@>=3.4.0 <4.0.0",
@@ -818,6 +823,11 @@
       "from": "fast-levenshtein@>=2.0.4 <2.1.0",
       "resolved": "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.4.tgz",
       "dev": true
+    },
+    "fetch-ponyfill": {
+      "version": "3.0.1",
+      "from": "fetch-ponyfill@>=3.0.0 <3.1.0",
+      "resolved": "https://registry.npmjs.org/fetch-ponyfill/-/fetch-ponyfill-3.0.1.tgz"
     },
     "figures": {
       "version": "1.7.0",
@@ -1054,6 +1064,11 @@
       "resolved": "https://registry.npmjs.org/is-resolvable/-/is-resolvable-1.0.0.tgz",
       "dev": true
     },
+    "is-stream": {
+      "version": "1.1.0",
+      "from": "is-stream@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-1.1.0.tgz"
+    },
     "isarray": {
       "version": "1.0.0",
       "from": "isarray@>=1.0.0 <1.1.0",
@@ -1229,6 +1244,11 @@
       "from": "natural-compare@>=1.4.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz",
       "dev": true
+    },
+    "node-fetch": {
+      "version": "1.6.0",
+      "from": "node-fetch@1.6.0",
+      "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-1.6.0.tgz"
     },
     "number-is-nan": {
       "version": "1.0.0",
@@ -1654,11 +1674,6 @@
       "version": "1.0.28",
       "from": "vue@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/vue/-/vue-1.0.28.tgz"
-    },
-    "whatwg-fetch": {
-      "version": "1.0.0",
-      "from": "whatwg-fetch@>=1.0.0 <1.1.0",
-      "resolved": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-1.0.0.tgz"
     },
     "window-size": {
       "version": "0.1.0",
