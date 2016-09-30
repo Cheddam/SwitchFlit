@@ -46,6 +46,7 @@ class SwitchFlitController extends Controller
 			];
 		}
 
+		$this->response->addHeader('Content-Type', 'application/json');
 		return json_encode($data);
 	}
 }
