@@ -62,7 +62,10 @@ new Vue({
     document.addEventListener('keydown', (event) => {
       if (event.keyCode === 27) {
         this.hide();
-      } else if ((navigator.platform === 'MacIntel' && event.metaKey && event.keyCode === 75) || (event.ctrlKey && event.keyCode === 75)) {
+      } else if (
+        (['MacIntel', 'iPhone', 'iPad', 'iPod'].indexOf(navigator.platform) > -1 && event.metaKey && event.keyCode === 75) ||
+        (event.ctrlKey && event.keyCode === 75)
+      ) {
         this.show();
       }
     });
