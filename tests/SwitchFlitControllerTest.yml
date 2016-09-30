@@ -1,7 +1,18 @@
-SwitchFlitDemoDataObject:
+SwitchFlitDataObject:
   obj1:
     Name: 'First'
   obj2:
     Name: 'Second'
   obj3:
     Name: 'Third'
+
+SwitchFlitDataObjectWithCustomQuery:
+  obj1:
+    Name: 'First'
+    Type: 'Invalid'
+  obj2:
+    Name: 'Second'
+    Type: 'Valid'
+  obj3:
+    Name: 'Third'
+    Type: 'Invalid'
