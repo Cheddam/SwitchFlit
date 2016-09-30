@@ -42,10 +42,9 @@ new Vue({
     },
 
     openResult() {
-      if (this.filteredRecords.length < 1) return true;
-
-      window.location = this.filteredRecords[this.selectedResult].link;
-      return false;
+      if (this.filteredRecords.length > 0) {
+        window.location = this.filteredRecords[this.selectedResult].link;
+      }
     },
   },
 
