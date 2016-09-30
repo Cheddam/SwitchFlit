@@ -1,60 +1,75 @@
-require('es6-promise').polyfill();
+/* global window, navigator */
+const Vue = require('vue');
+const Fuse = require('fuse.js');
 
-var Vue = require('vue')
-var Fuse = require('fuse.js')
+// eslint-disable-next-line no-new
+new Vue({
+  el: '#switchflit',
 
-window.switchflit = new Vue({
-	el: '#switchflit',
+  props: ['dataobject'],
 
-	props: ['dataobject'],
+  data: {
+    visible: false,
+    records: [],
+    fuse: null,
+    query: '',
+    selectedResult: 0,
+  },
 
-	data: {
-		visible: false,
-		records: [],
-		fuse: null,
-		query: ''
-	},
+  computed: {
+    filteredRecords() {
+      if (!this.fuse) return [];
 
-	computed: {
-		filteredRecords() {
-			if (!this.fuse) return []
+      this.fuse.set(this.records);
 
-			this.fuse.set(this.records)
+      return this.fuse.search(this.query);
+    },
+  },
 
-			return this.fuse.search(this.query)
-		}
-	},
+  methods: {
+    show() { this.visible = true; window.setTimeout(() => { this.$el.querySelector('input').focus(); }, 0); },
+    hide() { this.visible = false; this.query = ''; },
 
-	methods: {
-		show() { this.visible = true; window.setTimeout(() => { this.$el.querySelector('input').focus() }, 0) },
-		hide() { this.visible = false; this.query = '' },
+    shiftDown() {
+      if (this.selectedResult < this.filteredRecords.length - 1) {
+        this.selectedResult = this.selectedResult + 1;
+      }
+    },
+    shiftUp() {
+      if (this.selectedResult > 0) {
+        this.selectedResult = this.selectedResult - 1;
+      }
+    },
 
-		openResult() {
-			if (this.filteredRecords.length < 1) return true
+    openResult() {
+      if (this.filteredRecords.length > 0) {
+        window.location = this.filteredRecords[this.selectedResult].link;
+      }
+    },
+  },
 
-			window.location = this.filteredRecords[0].link
-		}
-	},
+  created() {
+    fetch(`/switchflit/${this.dataobject}/records`)
+      .then(response => response.json())
+      .then((records) => {
+        this.records = records;
 
-	created() {
-		fetch(`/switchflit/${this.dataobject}/records`).then((response) => {
-			return response.json()
-		}).then((records) => {
-			this.records = records
+        this.fuse = new Fuse(this.records, { keys: ['title'] });
+      });
+  },
 
-			this.fuse = new Fuse(this.records, { keys: ['title'] })
-		})
-	},
+  ready() {
+    document.addEventListener('keydown', (event) => {
+      if (event.keyCode === 27) {
+        this.hide();
+      } else if (
+        (['MacIntel', 'iPhone', 'iPad', 'iPod'].indexOf(navigator.platform) > -1 && event.metaKey && event.keyCode === 75) ||
+        (event.ctrlKey && event.keyCode === 75)
+      ) {
+        this.show();
+      }
+    });
 
-	ready() {
-		this.$el.style.visibility = 'visible'
-	}
-})
-
-document.addEventListener('keydown', (event) => {
-	if (event.keyCode == 27) {
-		window.switchflit.hide()
-	} else if ((navigator.platform == "MacIntel" && event.metaKey && event.keyCode == 75) || (event.ctrlKey && event.keyCode == 75)) {
-		window.switchflit.show()
-	}
-})
+    this.$el.style.visibility = 'visible';
+  },
+});
