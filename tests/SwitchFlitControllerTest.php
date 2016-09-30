@@ -1,6 +1,7 @@
 <?php
 
 use SwitchFlit\SwitchFlitable;
+use SwitchFlit\WithCustomQuery;
 
 class SwitchFlitControllerTest extends FunctionalTest
 {
@@ -10,7 +11,7 @@ class SwitchFlitControllerTest extends FunctionalTest
 
 	public function testReturnsJson()
     {
-        $response = $this->get('/switchflit/SwitchFlitDemoDataObject/records');
+        $response = $this->get('/switchflit/SwitchFlitDataObject/records');
 
         $this->assertEquals('application/json', $response->getHeader('Content-Type'));
     }
@@ -30,7 +31,7 @@ class SwitchFlitControllerTest extends FunctionalTest
             ],
 		];
 
-		$response = $this->get('/switchflit/SwitchFlitDemoDataObject/records');
+		$response = $this->get('/switchflit/SwitchFlitDataObject/records');
 
         $this->assertEquals(200, $response->getStatusCode());
 		$this->assertEquals($expected, json_decode($response->getBody()));
@@ -67,10 +68,29 @@ class SwitchFlitControllerTest extends FunctionalTest
         ];
 
         $response = $this->get('/switchflit/stdClass/records');
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals($expected, json_decode($response->getBody()));
 	}
+
+	public function testGetCorrectRecordsWithCustomQuery()
+    {
+        $expected = (object)[
+            'items' => [
+                (object)[
+                    'title' => 'Second',
+                    'link' => '/sfobject/2'
+                ],
+            ],
+        ];
+
+        $result = $this->get('/switchflit/SwitchFlitDataObjectWithCustomQuery/records');
+
+        $this->assertEquals($expected, json_decode($result->getBody()));
+    }
 }
 
-class SwitchFlitDemoDataObject extends DataObject implements SwitchFlitable
+class SwitchFlitDataObject extends DataObject implements SwitchFlitable
 {
 	private static $db = [
 		'Name' => 'Varchar(150)',
@@ -90,4 +110,42 @@ class SwitchFlitDemoDataObject extends DataObject implements SwitchFlitable
 	{
 		return $this->ID != 2;
 	}
+}
+
+class SwitchFlitDataObjectWithCustomQuery extends DataObject implements SwitchFlitable, WithCustomQuery
+{
+    private static $db = [
+        'Name' => 'Varchar(150)',
+        'Type' => "Enum('Valid,Invalid','Invalid')",
+    ];
+
+    /**
+     * @return string The title to use in SwitchFlit for this DataObject
+     */
+    public function SwitchFlitTitle()
+    {
+        return $this->Name;
+    }
+
+    /**
+     * @return string The link to use in SwitchFlit for this DataObject
+     */
+    public function SwitchFlitLink()
+    {
+        return '/sfobject/' . $this->ID;
+    }
+
+    /**
+     * @param \DataList $data The original DataList.
+     * @return \DataList The DataList with custom filters applied.
+     */
+    public static function SwitchFlitQuery(\DataList $data)
+    {
+        return $data->filter(['Type' => 'Valid']);
+    }
+
+    public function canView($member = null)
+    {
+        return true;
+    }
 }
