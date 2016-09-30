@@ -1,6 +1,8 @@
 <?php
 
-class SwitchFlitController extends Controller
+namespace SwitchFlit;
+
+class SwitchFlitController extends \Controller
 {
 	private static $url_handlers = [
 		'$DataObject/records' => 'getRecordsForDataObject'
@@ -13,25 +15,25 @@ class SwitchFlitController extends Controller
 	/**
 	 * Pulls all items from a SwitchFlitable DataObject and returns them as JSON.
 	 *
-	 * @param SS_HTTPRequest $request The current request.
+	 * @param \SS_HTTPRequest $request The current request.
 	 * @return string The data in JSON format.
 	 *
 	 * @todo Allow custom columns? Pagination considerations?
 	 */
-	public function getRecordsForDataObject(SS_HTTPRequest $request)
+	public function getRecordsForDataObject(\SS_HTTPRequest $request)
 	{
 		$dataobject = $request->param('DataObject');
 
 		if (! class_exists($dataobject)) {
-			throw new Exception('The class ' . $dataobject . ' does not exist.');
+			throw new \Exception('The class ' . $dataobject . ' does not exist.');
 		}
 
 		if (! in_array('DataObject', class_parents($dataobject))) {
-			throw new Exception('The class ' . $dataobject . ' is not a DataObject.');
+			throw new \Exception('The class ' . $dataobject . ' is not a DataObject.');
 		}
 
 		if (! in_array('SwitchFlit\SwitchFlitable', class_implements($dataobject))) {
-			throw new Exception('The class ' . $dataobject . ' is not SwitchFlitable.');
+			throw new \Exception('The class ' . $dataobject . ' is not SwitchFlitable.');
 		}
 
 		$records = $dataobject::get();

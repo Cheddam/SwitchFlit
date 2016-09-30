@@ -5,4 +5,4 @@ After:
 ---
 Director:
   rules:
-    'switchflit': 'SwitchFlitController'
+    'switchflit': 'SwitchFlit\SwitchFlitController'
