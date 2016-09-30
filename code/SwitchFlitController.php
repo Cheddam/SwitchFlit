@@ -37,6 +37,11 @@ class SwitchFlitController extends \Controller
 		}
 
 		$records = $dataobject::get();
+
+        if (in_array('SwitchFlit\WithCustomQuery', class_implements($dataobject))) {
+            $records = $dataobject::SwitchFlitQuery($records);
+        }
+
 		$data = [];
 
 		foreach ($records as $record) {
