@@ -65,7 +65,7 @@
 	border-top: none;
 }
 
-.switchflit-menu ul li:first-child {
+.switchflit-menu ul li.switchflit-selected {
 	margin-top: 10px;
 	background: rgba(100, 100, 230, 0.7);
 	color: white;
