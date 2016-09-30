@@ -5,21 +5,21 @@ use SwitchFlit\WithCustomQuery;
 
 class SwitchFlitControllerTest extends FunctionalTest
 {
-	protected $usesDatabase = true;
+    protected $usesDatabase = true;
 
-	protected static $fixture_file = 'SwitchFlitControllerTest.yml';
+    protected static $fixture_file = 'SwitchFlitControllerTest.yml';
 
-	public function testReturnsJson()
+    public function testReturnsJson()
     {
         $response = $this->get('/switchflit/SwitchFlitDataObject/records');
 
         $this->assertEquals('application/json', $response->getHeader('Content-Type'));
     }
 
-	public function testGetAllowedRecordsForSwitchFlitableDataObject()
-	{
-		$expected = (object)[
-		    'items' => [
+    public function testGetAllowedRecordsForSwitchFlitableDataObject()
+    {
+        $expected = (object)[
+            'items' => [
                 (object)[
                     'title' => 'First',
                     'link' => '/sfobject/1'
@@ -29,16 +29,16 @@ class SwitchFlitControllerTest extends FunctionalTest
                     'link' => '/sfobject/3'
                 ],
             ],
-		];
+        ];
 
-		$response = $this->get('/switchflit/SwitchFlitDataObject/records');
+        $response = $this->get('/switchflit/SwitchFlitDataObject/records');
 
         $this->assertEquals(200, $response->getStatusCode());
-		$this->assertEquals($expected, json_decode($response->getBody()));
-	}
+        $this->assertEquals($expected, json_decode($response->getBody()));
+    }
 
-	public function testDoNotGetRecordsForNonSwitchFlitableDataObject()
-	{
+    public function testDoNotGetRecordsForNonSwitchFlitableDataObject()
+    {
         $expected = (object)[
             'errors' => ['The class Member is not SwitchFlitable.']
         ];
@@ -47,10 +47,10 @@ class SwitchFlitControllerTest extends FunctionalTest
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals($expected, json_decode($response->getBody()));
-	}
+    }
 
-	public function testDoNotGetRecordsForNonExistentDataObject()
-	{
+    public function testDoNotGetRecordsForNonExistentDataObject()
+    {
         $expected = (object)[
             'errors' => ['The class NotReal does not exist.']
         ];
@@ -59,10 +59,10 @@ class SwitchFlitControllerTest extends FunctionalTest
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals($expected, json_decode($response->getBody()));
-	}
+    }
 
-	public function testDoNotGetRecordsForNonDataObject()
-	{
+    public function testDoNotGetRecordsForNonDataObject()
+    {
         $expected = (object)[
             'errors' => ['The class stdClass is not a DataObject.']
         ];
@@ -71,9 +71,9 @@ class SwitchFlitControllerTest extends FunctionalTest
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals($expected, json_decode($response->getBody()));
-	}
+    }
 
-	public function testGetCorrectRecordsWithCustomQuery()
+    public function testGetCorrectRecordsWithCustomQuery()
     {
         $expected = (object)[
             'items' => [
@@ -92,24 +92,24 @@ class SwitchFlitControllerTest extends FunctionalTest
 
 class SwitchFlitDataObject extends DataObject implements SwitchFlitable
 {
-	private static $db = [
-		'Name' => 'Varchar(150)',
-	];
+    private static $db = [
+        'Name' => 'Varchar(150)',
+    ];
 
-	public function SwitchFlitTitle()
-	{
-		return $this->Name;
-	}
+    public function SwitchFlitTitle()
+    {
+        return $this->Name;
+    }
 
-	public function SwitchFlitLink()
-	{
-		return '/sfobject/' . $this->ID;
-	}
+    public function SwitchFlitLink()
+    {
+        return '/sfobject/' . $this->ID;
+    }
 
-	public function canView($member = null)
-	{
-		return $this->ID != 2;
-	}
+    public function canView($member = null)
+    {
+        return $this->ID != 2;
+    }
 }
 
 class SwitchFlitDataObjectWithCustomQuery extends DataObject implements SwitchFlitable, WithCustomQuery
