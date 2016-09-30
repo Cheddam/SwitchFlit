@@ -49,6 +49,14 @@
 	border: 1px solid rgba(100, 100, 230, 0.7);
 }
 
+.switchflit-loading .switchflit-menu input {
+	border-color: orange;
+}
+
+.switchflit-error .switchflit-menu input {
+	border-color: red;
+}
+
 .switchflit-menu ul {
 	margin: 0 -10px;
 	width: 520px;

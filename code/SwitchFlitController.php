@@ -18,6 +18,7 @@ class SwitchFlitController extends \Controller
 	 * @param \SS_HTTPRequest $request The current request.
 	 * @return string The data in JSON format.
 	 *
+     * @todo Clean up response handling.
 	 * @todo Allow custom columns? Pagination considerations?
 	 */
 	public function getRecordsForDataObject(\SS_HTTPRequest $request)
@@ -25,15 +26,15 @@ class SwitchFlitController extends \Controller
 		$dataobject = $request->param('DataObject');
 
 		if (! class_exists($dataobject)) {
-			throw new \Exception('The class ' . $dataobject . ' does not exist.');
+            return $this->sendError('The class ' . $dataobject . ' does not exist.');
 		}
 
 		if (! in_array('DataObject', class_parents($dataobject))) {
-			throw new \Exception('The class ' . $dataobject . ' is not a DataObject.');
+            return $this->sendError('The class ' . $dataobject . ' is not a DataObject.');
 		}
 
 		if (! in_array('SwitchFlit\SwitchFlitable', class_implements($dataobject))) {
-			throw new \Exception('The class ' . $dataobject . ' is not SwitchFlitable.');
+            return $this->sendError('The class ' . $dataobject . ' is not SwitchFlitable.');
 		}
 
 		$records = $dataobject::get();
@@ -44,16 +45,43 @@ class SwitchFlitController extends \Controller
 
 		$data = [];
 
-		foreach ($records as $record) {
-			if (! $record->canView()) continue;
+		$results = $this->prepareRecords($records);
 
-			$data[] = [
-				'title' => $record->SwitchFlitTitle(),
-				'link' => $record->SwitchFlitLink()
-			];
-		}
+        $response = $this->getResponse();
 
-		$this->response->addHeader('Content-Type', 'application/json');
-		return json_encode($data);
+        $response->setStatusCode(200);
+        $response->addHeader('Content-Type', 'application/json');
+		$response->setBody(json_encode(['items' => $results]));
+
+		return $response;
 	}
+
+	public function prepareRecords($records)
+    {
+        $data = [];
+
+        foreach ($records as $record) {
+            if (! $record->canView()) continue;
+
+            $data[] = [
+                'title' => $record->SwitchFlitTitle(),
+                'link' => $record->SwitchFlitLink()
+            ];
+        }
+
+        return $data;
+    }
+
+    private function sendError($error)
+    {
+        $response = $this->getResponse();
+
+        $response->setStatusCode(400);
+        $response->addHeader('Content-Type', 'application/json');
+        $response->setBody(json_encode([
+            'errors' => [$error]
+        ]));
+
+        return $response;
+    }
 }
