@@ -12,6 +12,20 @@ new Vue({
   data: {
     visible: false,
     currentState: 'loading', // (loading | ready | error)
+    states: {
+      loading: {
+        title: 'Loading Data',
+        description: 'Currently downloading data. You may see incomplete search results.',
+      },
+      ready: {
+        title: 'Ready',
+        description: 'Everything is working as expected.',
+      },
+      error: {
+        title: 'Load Failure',
+        description: 'Failed to load data. Search is unavailable.',
+      },
+    },
     records: [],
     fuse: null,
     query: '',
@@ -29,6 +43,12 @@ new Vue({
     currentStateClass() {
       return `switchflit-${this.currentState}`;
     },
+    currentStateTitle() {
+      return this.states[this.currentState].title;
+    },
+    currentStateDescription() {
+      return this.states[this.currentState].description;
+    },
   },
 
   methods: {
@@ -44,6 +64,9 @@ new Vue({
       if (this.selectedResult > 0) {
         this.selectedResult = this.selectedResult - 1;
       }
+    },
+    selectResult(i) {
+      this.selectedResult = i;
     },
 
     openResult() {

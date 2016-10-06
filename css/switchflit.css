@@ -13,68 +13,97 @@
 	z-index: 100;
 }
 
-.switchflit-menu {
+.switchflit-ui {
 	position: fixed;
 	left: calc(50% - 250px);
 	top: 40%;
 	width: 520px;
-	min-height: 85px;
-	padding: 10px;
 	background: white;
+	overflow: hidden;
 
-	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.switchflit-menu:before {
-	content: 'Switch Context';
-	margin-bottom: 5px;
+.switchflit-menu {
+}
+
+.switchflit-heading {
+	padding: 10px;
+	border-bottom: solid 1px lightgrey;
+}
+
+.switchflit-title,
+.switchflit-state {
 	font-size: 10px;
 	line-height: 10px;
 	text-transform: uppercase;
 	position: relative;
 	float: left;
+	color: darkgrey;
 }
 
-.switchflit-menu input {
+.switchflit-state {
+	float: right;
+}
+
+.switchflit-state.switchflit-loading {
+	color: orange;
+}
+
+.switchflit-state.switchflit-error {
+	color: red;
+}
+
+.switchflit-query {
 	width: 500px;
 	height: 50px;
-	padding: 0 5px;
+	padding: 0 15px;
 
-	font-size: 30px;
-	border: 1px solid rgba(0, 0, 0, 0.7);
+	font-size: 1.6em;
+	border: none;
 }
 
-.switchflit-menu input:focus {
+.switchflit-query:focus {
 	outline: none;
-	border: 1px solid rgba(100, 100, 230, 0.7);
 }
 
-.switchflit-loading .switchflit-menu input {
+.switchflit-loading .switchflit-query {
 	border-color: orange;
 }
 
-.switchflit-error .switchflit-menu input {
+.switchflit-error .switchflit-query {
 	border-color: red;
 }
 
-.switchflit-menu ul {
-	margin: 0 -10px;
-	width: 520px;
+.switchflit-results {
+	border-top: solid 1px lightgrey;
 }
 
-.switchflit-menu ul li {
-	width: 500px;
-	margin: 10px 10px;
-	height: 50px;
-	line-height: 50px;
-	padding: 0 5px;
+.switchflit-result {
+	margin: 10px 0;
+	padding: 5px 15px;
 
 	list-style: none;
 	border-top: none;
+	cursor: pointer;
 }
 
-.switchflit-menu ul li.switchflit-selected {
-	margin-top: 10px;
-	background: rgba(100, 100, 230, 0.7);
+.switchflit-result.switchflit-selected {
+	background: rgba(70, 70, 180, 0.9);
 	color: white;
+}
+
+.switchflit-result.switchflit-selected .switchflit-result-link {
+	color: white;
+	opacity: .9;
+}
+
+.switchflit-result-title {
+	font-size: 1.3em;
+}
+
+.switchflit-result-link {
+	font-size: .9em;
+	color: grey;
 }
