@@ -33,6 +33,14 @@
 	border-bottom: solid 1px lightgrey;
 }
 
+.switchflit-heading:after {
+	height: 0;
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+}
+
 .switchflit-title,
 .switchflit-state {
 	font-size: 10px;
@@ -41,6 +49,8 @@
 	position: relative;
 	float: left;
 	color: darkgrey;
+	margin: 0;
+	padding: 0;
 }
 
 .switchflit-state {
@@ -78,6 +88,7 @@
 
 .switchflit-results {
 	border-top: solid 1px lightgrey;
+	padding: 0;
 }
 
 .switchflit-result {
@@ -97,6 +108,11 @@
 .switchflit-result.switchflit-selected .switchflit-result-link {
 	color: white;
 	opacity: .9;
+}
+
+.switchflit-result-title,
+.switchflit-result-link {
+	margin: 0;
 }
 
 .switchflit-result-title {
