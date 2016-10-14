@@ -45,4 +45,6 @@ You should now be able to visit your page and invoke the UI with Cmd + K on macO
 
 ## Further reading
 
-If you're interested in filtering the record list sent to the browser, check out [this guide](custom-queries.md).
+If you're interested in filtering the record list sent to the browser, check out [Custom Queries](custom-queries.md).
+
+If you'd like to change the design to suit your particular project, take a look at [Changing Design](changing-design.md).

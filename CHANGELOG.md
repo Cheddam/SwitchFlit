@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.0 Beta 2](https://github.com/Cheddam/SwitchFlit/tree/1.0.0-beta.2) (2016-10-14)
+
+The second beta build! This release focusses on improving the default UI and interactions.
+
+- Added mouse interactions
+- Added basic docs about customising style and structure
+- Improved visibility of loading / error states
+- Improved design, should function better outside the default Simple theme
+
 ## [1.0.0 Beta 1](https://github.com/Cheddam/SwitchFlit/tree/1.0.0-beta.1) (2016-10-01)
 
 Welcome to the first beta build! Some major strides have been made since 0.9, and we are well on track to hitting 1.0 by the end of October.
