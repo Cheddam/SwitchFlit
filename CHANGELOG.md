@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0](https://github.com/Cheddam/SwitchFlit/tree/1.0.0)
+
+The first stable release!
+
+- Added DataObject Alias parameter for displaying an alternative DataObject name in the UI
+- Changed `result-link` to `result-details` to future-proof the API slightly
+- Updated the preview image in the README.
+
 ## [1.0.0 Beta 2](https://github.com/Cheddam/SwitchFlit/tree/1.0.0-beta.2) (2016-10-14)
 
 The second beta build! This release focusses on improving the default UI and interactions.
