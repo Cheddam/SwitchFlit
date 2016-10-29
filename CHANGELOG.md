@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0](https://github.com/Cheddam/SwitchFlit/tree/1.0.0)
+## [1.0.0](https://github.com/Cheddam/SwitchFlit/tree/v1.0.0)
 
 The first stable release!
 
@@ -8,7 +8,7 @@ The first stable release!
 - Changed `result-link` to `result-details` to future-proof the API slightly
 - Updated the preview image in the README.
 
-## [1.0.0 Beta 2](https://github.com/Cheddam/SwitchFlit/tree/1.0.0-beta.2) (2016-10-14)
+## [1.0.0 Beta 2](https://github.com/Cheddam/SwitchFlit/tree/v1.0.0-beta.2) (2016-10-14)
 
 The second beta build! This release focusses on improving the default UI and interactions.
 
@@ -17,7 +17,7 @@ The second beta build! This release focusses on improving the default UI and int
 - Improved visibility of loading / error states
 - Improved design, should function better outside the default Simple theme
 
-## [1.0.0 Beta 1](https://github.com/Cheddam/SwitchFlit/tree/1.0.0-beta.1) (2016-10-01)
+## [1.0.0 Beta 1](https://github.com/Cheddam/SwitchFlit/tree/v1.0.0-beta.1) (2016-10-01)
 
 Welcome to the first beta build! Some major strides have been made since 0.9, and we are well on track to hitting 1.0 by the end of October.
 
@@ -29,6 +29,6 @@ Welcome to the first beta build! Some major strides have been made since 0.9, an
 - Improved global hotkey (now tentatively supports iOS devices and only becomes available when SwitchFlit is ready)
 - Fixed inconsistent licensing
 
-## [0.9.0](https://github.com/Cheddam/SwitchFlit/tree/0.9.0) (2016-08-19)
+## [0.9.0](https://github.com/Cheddam/SwitchFlit/tree/v0.9.0) (2016-08-19)
 
 Initial release.
