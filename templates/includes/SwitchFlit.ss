@@ -23,7 +23,7 @@
                 @mouseover="selectResult(i)"
                 @click="openResult">
                 <p class="switchflit-result-title">{{ record.title }}</p>
-                <p class="switchflit-result-link">{{ record.link }}</p>
+                <p class="switchflit-result-details">{{ record.link }}</p>
             </li>
         </ul>
     </div>
