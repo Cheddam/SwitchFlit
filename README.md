@@ -2,7 +2,7 @@
 
 A plug-and-play quick-switch UI for SilverStripe DataObjects.
 
-![screenshot](https://cloud.githubusercontent.com/assets/242621/17800317/5814f898-6636-11e6-962f-688347fec61b.png)
+![screenshot](https://cloud.githubusercontent.com/assets/242621/19829330/e831df5a-9e39-11e6-9e6c-413f7b6d7ed4.png)
 
 ## Premise
 
