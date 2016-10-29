@@ -39,7 +39,12 @@ Finally, you'll need to include the SwitchFlit UI in your template. This general
     <% include SwitchFlit DataObject="MyDataObject" %>
 ```
 
-You'll see that it takes the name of the DataObject you have made SwitchFlitable.
+You'll see that it takes the name of the DataObject you have made SwitchFlitable. You can also specify an alias, in case the name of your DataObject isn't user friendly:
+
+```html
+    ...
+    <% include SwitchFlit DataObject="WeirdlyNamedDataObject" Alias="NiceName" %>
+```
 
 You should now be able to visit your page and invoke the UI with Cmd + K on macOS & iOS, or CTRL + K on Windows & Linux.
 
