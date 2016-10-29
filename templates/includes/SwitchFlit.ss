@@ -1,13 +1,13 @@
-<div id="switchflit" class="switchflit-overlay" :class="currentStateClass" dataobject="$DataObject" v-show="visible" @click.self="hide">
+<div id="switchflit" class="switchflit-overlay" :class="currentStateClass" dataobject="$DataObject" alias="<% if $Alias %>$Alias<% else %>$DataObject<% end_if %>" v-show="visible" @click.self="hide">
     <div class="switchflit-ui">
         <div class="switchflit-menu">
             <header class="switchflit-heading">
-                <h5 class="switchflit-title">Switch {{ dataobject }}</h5>
+                <h5 class="switchflit-title">Switch {{ alias }}</h5>
                 <small class="switchflit-state" v-if="currentState !== 'ready'" :class="currentStateClass" :title="currentStateDescription">{{ currentStateTitle }}</small>
             </header>
 
             <input class="switchflit-query"
-                   :placeholder="`Find a ${dataobject}...`"
+                   :placeholder="queryPlaceholder"
                    v-model="query" type="text"
                    :disabled="currentState === 'error'"
                    @keyup.enter="openResult"

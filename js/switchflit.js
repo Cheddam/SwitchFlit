@@ -1,13 +1,14 @@
 /* global window, navigator, console */
 const Vue = require('vue');
 const Fuse = require('fuse.js');
+const indefiniteArticle = require('indefinite-article');
 const { fetch } = require('fetch-ponyfill')();
 
 // eslint-disable-next-line no-new
 new Vue({
   el: '#switchflit',
 
-  props: ['dataobject'],
+  props: ['dataobject', 'alias'],
 
   data: {
     visible: false,
@@ -48,6 +49,9 @@ new Vue({
     },
     currentStateDescription() {
       return this.states[this.currentState].description;
+    },
+    queryPlaceholder() {
+      return `Find ${indefiniteArticle(this.alias)} ${this.alias}...`;
     },
   },
 
