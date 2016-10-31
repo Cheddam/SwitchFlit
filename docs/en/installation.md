@@ -48,6 +48,20 @@ You'll see that it takes the name of the DataObject you have made SwitchFlitable
 
 You should now be able to visit your page and invoke the UI with Cmd + K on macOS & iOS, or CTRL + K on Windows & Linux.
 
+# Configuration
+
+## Key combination
+
+This can be changed using the [SilverStripe Configuration API](https://docs.silverstripe.org/en/3.4/developer_guides/configuration/configuration/)::
+
+```yaml
+'SwitchFlit\SwitchFlitController':
+  key_combo: 'ctrl + 80'
+  key_combo_mac: 'meta + 80'
+```
+
+You can use `alt`, `ctrl`, `meta`, `shift` and any [numeric keycode](http://keycode.info/).
+
 ## Further reading
 
 If you're interested in filtering the record list sent to the browser, check out [Custom Queries](custom-queries.md).

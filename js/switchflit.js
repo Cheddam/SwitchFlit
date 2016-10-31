@@ -13,6 +13,7 @@ new Vue({
   data: {
     visible: false,
     currentState: 'loading', // (loading | ready | error)
+    config: {},
     states: {
       loading: {
         title: 'Loading Data',
@@ -92,6 +93,7 @@ new Vue({
           });
         } else {
           response.json().then((parsedBody) => {
+            this.config = parsedBody.config;
             this.records = parsedBody.items;
 
             this.fuse = new Fuse(this.records, { keys: ['title'] });
@@ -112,11 +114,34 @@ new Vue({
     document.addEventListener('keydown', (event) => {
       if (event.keyCode === 27) {
         this.hide();
-      } else if (
-        (['MacIntel', 'iPhone', 'iPad', 'iPod'].indexOf(navigator.platform) > -1 && event.metaKey && event.keyCode === 75) ||
-        (event.ctrlKey && event.keyCode === 75)
-      ) {
+      } else if (['MacIntel', 'iPhone', 'iPad', 'iPod'].indexOf(navigator.platform) > -1) {
+        if(typeof this.config.key_combo_mac !== 'undefined' && this.config.key_combo_mac.length > 0) {
+          var keys = this.config.key_combo_mac;
+        }
+      } else {
+        if(typeof this.config.key_combo !== 'undefined' && this.config.key_combo.length > 0) {
+          var keys = this.config.key_combo_mac;
+        }
+      }
+
+      var matchingKeys = 0;
+
+      keys.forEach(function(key) {
+        if(parseInt(key) >= 0 && event.keyCode === parseInt(key)) {
+          matchingKeys++;
+        } else if (
+          key.trim() === 'alt' && event.altKey ||
+          key.trim() === 'ctrl' && event.ctrlKey ||
+          key.trim() === 'meta' && event.metaKey ||
+          key.trim() === 'shift' && event.shiftKey
+        ) {
+          matchingKeys++;
+        }
+      });
+
+      if(matchingKeys === keys.length) {
         this.show();
+        event.preventDefault();
       }
     });
 

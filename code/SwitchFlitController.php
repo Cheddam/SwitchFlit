@@ -12,6 +12,22 @@ class SwitchFlitController extends \Controller
         'getRecordsForDataObject'
     ];
 
+    private static $key_combo = 'ctrl + 75';
+
+    private static $key_combo_mac = 'meta + 75';
+
+    /**
+     * Provide YAML-specified configuration to the browser
+     * @return string JSON-encoded configuration
+     */
+    public function getConfig()
+    {
+        return (object) [
+            'key_combo' => explode('+', $this->config()->key_combo),
+            'key_combo_mac' => explode('+', $this->config()->key_combo_mac),
+        ];
+    }
+
     /**
      * Pulls all items from a SwitchFlitable DataObject and returns them as JSON.
      *
@@ -51,7 +67,10 @@ class SwitchFlitController extends \Controller
 
         $response->setStatusCode(200);
         $response->addHeader('Content-Type', 'application/json');
-        $response->setBody(json_encode(['items' => $results]));
+        $response->setBody(json_encode([
+            'items' => $results,
+            'config' => $this->getConfig(),
+        ]));
 
         return $response;
     }
