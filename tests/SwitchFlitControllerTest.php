@@ -32,9 +32,10 @@ class SwitchFlitControllerTest extends FunctionalTest
         ];
 
         $response = $this->get('/switchflit/SwitchFlitDataObject/records');
-
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expected, json_decode($response->getBody()));
+
+        $body = json_decode($response->getBody());
+        $this->assertEquals($expected->items, $body->items);
     }
 
     public function testDoNotGetRecordsForNonSwitchFlitableDataObject()
@@ -85,8 +86,8 @@ class SwitchFlitControllerTest extends FunctionalTest
         ];
 
         $result = $this->get('/switchflit/SwitchFlitDataObjectWithCustomQuery/records');
-
-        $this->assertEquals($expected, json_decode($result->getBody()));
+        $body = json_decode($result->getBody());
+        $this->assertEquals($expected->items, $body->items);
     }
 }
 
